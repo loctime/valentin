@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next"
 import { DM_Sans, Playfair_Display } from "next/font/google"
 import "./globals.css"
 import { HeartsSurprise } from "@/components/hearts-surprise"
+import { AmbientParticles } from "@/components/ambient-particles"
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} ${playfair.variable} font-sans antialiased`}
       >
+        <AmbientParticles />
         <HeartsSurprise />
         {children}
       </body>

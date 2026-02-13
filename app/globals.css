@@ -85,6 +85,8 @@ html.narrative-scroll-active body {
 }
 
 .narrative-scroll {
+  position: relative;
+  z-index: 1;
   height: 100vh;
   height: 100dvh;
   overflow-y: auto;
@@ -113,6 +115,45 @@ html.narrative-scroll-active body {
 @keyframes gradient-drift {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
+}
+
+/* Partículas ambientales: movimiento lento y ligero en el fondo */
+@keyframes particle-drift {
+  0%, 100% {
+    transform: translate(-50%, -50%) translate(0, 0);
+  }
+  25% {
+    transform: translate(-50%, -50%) translate(8px, -12px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translate(-6px, -22px);
+  }
+  75% {
+    transform: translate(-50%, -50%) translate(10px, -14px);
+  }
+}
+
+.ambient-particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-particle {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  animation: particle-drift ease-in-out infinite;
+  color: hsl(350 40% 62%);
+}
+
+.ambient-particle-dot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: currentColor;
 }
 
 /* Corazones al hacer clic en elementos románticos: flotan y desaparecen */
@@ -288,6 +329,10 @@ html {
 
   .float-heart {
     animation: none !important;
+  }
+
+  .ambient-particle {
+    animation: none;
   }
 
   .animate-pulse-soft {
