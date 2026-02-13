@@ -5,13 +5,13 @@ import { useInViewOnce } from "@/hooks/use-in-view-once"
 
 const lines = [
   "De lejos siempre te ví",
-  "brillando con tu alegria y amabilidad.",
+  "brillando con tu alegría y amabilidad.",
   "",
   "Espero que esto te recuerde",
   "que tu energía contagia",
-  "de una forma unica y especial.",
+  "de una forma única y especial.",
   "",
-  "Saludos cercanos,",
+  "Saludos cercanos!",
   
 ]
 

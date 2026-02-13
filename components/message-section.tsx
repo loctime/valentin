@@ -54,13 +54,13 @@ export function MessageSection({ onContinue }: MessageSectionProps) {
   }, [])
 
   return (
-    <section className="relative flex min-h-[100dvh] items-center justify-center px-6 py-20">
+    <section className="relative flex min-h-[100dvh] items-center justify-center px-4 py-20 sm:px-6">
       <div
         ref={sectionRef}
-        className={`reveal-in-view romantic-card ${sectionVisible ? "is-visible" : ""} w-full max-w-sm rounded-2xl bg-card p-8 shadow-sm cursor-default`}
+        className={`reveal-in-view romantic-card ${sectionVisible ? "is-visible" : ""} w-full max-w-md sm:max-w-lg rounded-2xl bg-card p-6 sm:p-8 md:p-10 shadow-sm cursor-default`}
         data-hearts-surprise
       >
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2 sm:gap-3">
           {lines.map((line, i) => {
             if (line === "") {
               return (
@@ -68,7 +68,7 @@ export function MessageSection({ onContinue }: MessageSectionProps) {
                   key={i}
                   ref={(el) => { lineRefs.current[i] = el as HTMLParagraphElement }}
                   data-index={i}
-                  className="h-4"
+                  className="h-5 sm:h-6"
                   aria-hidden="true"
                 />
               )
@@ -81,7 +81,7 @@ export function MessageSection({ onContinue }: MessageSectionProps) {
                 key={i}
                 ref={(el) => { lineRefs.current[i] = el }}
                 data-index={i}
-                className="message-line font-serif text-lg leading-relaxed text-card-foreground"
+                className="message-line font-serif text-xl sm:text-2xl leading-relaxed text-card-foreground"
                 style={{
                   opacity: isVisible ? 1 : 0,
                   transform: isVisible
@@ -100,7 +100,7 @@ export function MessageSection({ onContinue }: MessageSectionProps) {
             <button
               type="button"
               onClick={onContinue}
-              className="btn-romantic-cta rounded-full bg-primary px-8 py-3 text-sm font-medium text-primary-foreground"
+              className="btn-romantic-cta rounded-full bg-primary px-8 py-3.5 text-base font-medium text-primary-foreground sm:px-10 sm:py-4"
               data-hearts-surprise
             >
               Continuar
