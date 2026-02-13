@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from "react"
 import { HeroSection } from "@/components/hero-section"
 import { MessageSection } from "@/components/message-section"
 import { MessageSection2 } from "@/components/message-section-2"
+import { MessageSection3 } from "@/components/message-section-3"
 import { InvitationSection } from "@/components/invitation-section"
 
-const SECTION_COUNT = 4
+const SECTION_COUNT = 5
 
 export default function Page() {
   const scrollRef = useRef<HTMLMainElement>(null)
@@ -132,6 +133,18 @@ export default function Page() {
         style={{
           opacity: opacities[3],
           transform: `scale(${scale(3)})`,
+        }}
+      >
+        <MessageSection3 onContinue={() => handleScrollToSection(4)} />
+      </div>
+
+      <div
+        ref={(el) => { sectionRefs.current[4] = el }}
+        data-index={4}
+        className="narrative-section"
+        style={{
+          opacity: opacities[4],
+          transform: `scale(${scale(4)})`,
         }}
       >
         <InvitationSection onBackToStart={() => handleScrollToSection(0)} />

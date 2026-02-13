@@ -4,19 +4,22 @@ import { useEffect, useRef, useState } from "react"
 import { useInViewOnce } from "@/hooks/use-in-view-once"
 
 const lines = [
-  "Que este pequeño detalle",
-  "deje una sonrisa en tu día",
-  "y puedas recordarlo",
-  "siempre que lo necesites.",
+  "De lejos siempre te ví",
+  "brillando con tu alegria y amabilidad.",
   "",
+  "Espero que esto te recuerde",
+  "que tu energía contagia",
+  "de una forma unica y especial.",
+  "",
+  "Saludos cercanos,",
   
 ]
 
-interface MessageSection2Props {
+interface MessageSection3Props {
   onContinue?: () => void
 }
 
-export function MessageSection2({ onContinue }: MessageSection2Props) {
+export function MessageSection3({ onContinue }: MessageSection3Props) {
   const [visibleLines, setVisibleLines] = useState<number[]>([])
   const lineRefs = useRef<(HTMLParagraphElement | null)[]>([])
   const [sectionRef, sectionVisible] = useInViewOnce({
@@ -52,13 +55,9 @@ export function MessageSection2({ onContinue }: MessageSection2Props) {
     <section className="relative flex min-h-svh items-center justify-center px-6 py-20">
       <div
         ref={sectionRef}
-        className={`reveal-in-view-left w-full max-w-sm rounded-xl border border-border/80 bg-card/95 py-8 pl-8 pr-8 shadow-sm cursor-default ${sectionVisible ? "is-visible" : ""}`}
-        style={{
-          borderLeftWidth: "4px",
-          borderLeftColor: "hsl(var(--primary))",
-        }}
+        className={`reveal-in-view-scale w-full max-w-sm rounded-2xl bg-card/90 py-8 px-8 shadow-md cursor-default ${sectionVisible ? "is-visible" : ""}`}
       >
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 text-center">
           {lines.map((line, i) => {
             if (line === "") {
               return (
@@ -83,13 +82,13 @@ export function MessageSection2({ onContinue }: MessageSection2Props) {
                   lineRefs.current[i] = el
                 }}
                 data-index={i}
-                className="message-line-2 font-serif text-base leading-relaxed text-muted-foreground"
+                className="message-line-3 font-serif text-lg leading-relaxed text-card-foreground"
                 style={{
                   opacity: isVisible ? 1 : 0,
                   transform: isVisible
-                    ? "translateX(0)"
-                    : "translateX(-16px)",
-                  transitionDelay: isVisible ? `${i * 0.1}s` : "0s",
+                    ? "scale(1)"
+                    : "scale(0.96)",
+                  transitionDelay: isVisible ? `${i * 0.09}s` : "0s",
                 }}
               >
                 {line}

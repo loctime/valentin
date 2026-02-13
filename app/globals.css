@@ -331,6 +331,26 @@ html {
     transform var(--duration-slow) var(--ease-out-smooth);
 }
 
+/* Tercera sección de mensaje: entrada con escala */
+.reveal-in-view-scale {
+  opacity: 0;
+  transform: scale(0.94);
+  transition:
+    opacity var(--duration-slow) var(--ease-out-smooth),
+    transform var(--duration-slow) var(--ease-out-smooth);
+}
+.reveal-in-view-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Líneas mensaje 3: transición con scale */
+.message-line-3 {
+  transition:
+    opacity var(--duration-slow) var(--ease-out-smooth),
+    transform var(--duration-slow) var(--ease-out-smooth);
+}
+
 /* Sección visible: hijos con stagger (para InvitationSection, etc.) */
 .section-reveal .reveal-item {
   opacity: 0;
@@ -407,6 +427,17 @@ html {
   }
 
   .message-line-2 {
+    transition: none;
+  }
+
+  .reveal-in-view-scale,
+  .reveal-in-view-scale.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .message-line-3 {
     transition: none;
   }
 
