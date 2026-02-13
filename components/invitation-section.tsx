@@ -4,7 +4,9 @@ import { useState, useCallback } from "react"
 import { useInViewOnce } from "@/hooks/use-in-view-once"
 import { SakuraFlowerSelector } from "@/components/sakura-flower-selector"
 import { ProposalModal } from "@/components/proposal-modal"
+import { ConfirmModal } from "@/components/ConfirmModal"
 import type { ProposalConfirmPayload } from "@/components/proposal-modal"
+import { saveInvitationResponse } from "@/lib/invitation"
 
 interface InvitationSectionProps {
   onBackToStart?: () => void
@@ -17,17 +19,46 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
     rootMargin: "0px 0px -5% 0px",
   })
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
+  const [customMessage, setCustomMessage] = useState("")
+  const [isSaving, setIsSaving] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [customIdea, setCustomIdea] = useState("")
+  const [isProposalOpen, setIsProposalOpen] = useState(false)
+  const [confirmData, setConfirmData] = useState<{
+    selectedOptions: string[]
+    customMessage: string
+  }>({ selectedOptions: [], customMessage: "" })
 
   const handleSelectionChange = useCallback((options: string[]) => {
     setSelectedOptions(options)
   }, [])
 
+  const canSubmit =
+    selectedOptions.length > 0 || customMessage.trim().length > 0
+
   const handleConfirm = useCallback(
-    (payload: ProposalConfirmPayload) => {
-      setIsModalOpen(false)
-      onProposalConfirm?.(payload)
+    async (payload: ProposalConfirmPayload) => {
+      const hasOptions = payload.selectedOptions.length > 0
+      const hasMessage = payload.customMessage.trim().length > 0
+      if (!hasOptions && !hasMessage) return
+
+      setIsSaving(true)
+      try {
+        await saveInvitationResponse({
+          selectedOptions: payload.selectedOptions,
+          customMessage: payload.customMessage,
+        })
+        setIsProposalOpen(false)
+        setConfirmData({
+          selectedOptions: payload.selectedOptions,
+          customMessage: payload.customMessage,
+        })
+        setIsModalOpen(true)
+        onProposalConfirm?.(payload)
+      } catch {
+        // TODO: mostrar error al usuario (ej. toast o estado de error)
+      } finally {
+        setIsSaving(false)
+      }
     },
     [onProposalConfirm]
   )
@@ -56,11 +87,11 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
           <SakuraFlowerSelector onSelectionChange={handleSelectionChange} />
           <button
             type="button"
-            onClick={() => setIsModalOpen(true)}
-            disabled={selectedOptions.length === 0}
+            onClick={() => setIsProposalOpen(true)}
+            disabled={!canSubmit || isSaving}
             className="btn-romantic-cta rounded-full border border-primary/30 bg-primary/10 px-6 py-2.5 text-sm font-medium text-foreground shadow-sm hover:bg-primary/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
-            👉 Aceptar propuesta
+            {isSaving ? "Guardando…" : "👉 Aceptar propuesta"}
           </button>
         </div>
 
@@ -81,12 +112,20 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
         )}
 
         <ProposalModal
-          open={isModalOpen}
+          open={isProposalOpen}
           selections={selectedOptions}
-          customIdea={customIdea}
-          onChangeCustomIdea={setCustomIdea}
-          onClose={() => setIsModalOpen(false)}
+          customMessage={customMessage}
+          onChangeCustomMessage={setCustomMessage}
+          onClose={() => setIsProposalOpen(false)}
           onConfirm={handleConfirm}
+          isSaving={isSaving}
+        />
+
+        <ConfirmModal
+          open={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          selectedOptions={confirmData.selectedOptions}
+          customMessage={confirmData.customMessage}
         />
 
         <svg

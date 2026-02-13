@@ -4,16 +4,17 @@ import { useEffect } from "react"
 
 export interface ProposalConfirmPayload {
   selectedOptions: string[]
-  customIdea: string
+  customMessage: string
 }
 
 interface ProposalModalProps {
   open: boolean
   selections: string[]
-  customIdea: string
-  onChangeCustomIdea: (value: string) => void
+  customMessage: string
+  onChangeCustomMessage: (value: string) => void
   onClose: () => void
   onConfirm: (payload: ProposalConfirmPayload) => void
+  isSaving?: boolean
 }
 
 const HeartBullet = () => (
@@ -30,15 +31,16 @@ const HeartBullet = () => (
 export function ProposalModal({
   open,
   selections,
-  customIdea,
-  onChangeCustomIdea,
+  customMessage,
+  onChangeCustomMessage,
   onClose,
   onConfirm,
+  isSaving = false,
 }: ProposalModalProps) {
   useEffect(() => {
     if (open) {
       const handleEscape = (e: KeyboardEvent) => {
-        if (e.key === "Escape") onClose()
+        if (e.key === "Escape" && !isSaving) onClose()
       }
       document.addEventListener("keydown", handleEscape)
       document.body.style.overflow = "hidden"
@@ -47,12 +49,12 @@ export function ProposalModal({
         document.body.style.overflow = ""
       }
     }
-  }, [open, onClose])
+  }, [open, onClose, isSaving])
 
   if (!open) return null
 
   const handleConfirm = () => {
-    onConfirm({ selectedOptions: selections, customIdea })
+    onConfirm({ selectedOptions: selections, customMessage })
   }
 
   return (
@@ -66,7 +68,8 @@ export function ProposalModal({
       <button
         type="button"
         onClick={onClose}
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ease-out"
+        disabled={isSaving}
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ease-out disabled:pointer-events-none"
         aria-label="Cerrar"
       />
 
@@ -96,30 +99,33 @@ export function ProposalModal({
           ))}
         </ul>
 
-        <label htmlFor="proposal-custom-idea" className="sr-only">
+        <label htmlFor="proposal-custom-message" className="sr-only">
           Idea adicional opcional
         </label>
         <textarea
-          id="proposal-custom-idea"
-          value={customIdea}
-          onChange={(e) => onChangeCustomIdea(e.target.value)}
+          id="proposal-custom-message"
+          value={customMessage}
+          onChange={(e) => onChangeCustomMessage(e.target.value)}
           placeholder="¿Tienes una idea mejor? Puedes escribirla aquí..."
           rows={3}
-          className="mt-4 w-full rounded-xl border border-primary/20 bg-background/50 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20"
+          disabled={isSaving}
+          className="mt-4 w-full rounded-xl border border-primary/20 bg-background/50 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-70"
         />
 
         <div className="mt-6 flex flex-wrap gap-3 justify-center">
           <button
             type="button"
             onClick={handleConfirm}
-            className="btn-romantic-cta rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90"
+            disabled={isSaving}
+            className="btn-romantic-cta rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 disabled:opacity-70 disabled:pointer-events-none"
           >
-            Confirmar
+            {isSaving ? "Guardando…" : "Confirmar"}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full border border-primary/30 bg-transparent px-6 py-2.5 text-sm font-medium text-foreground hover:bg-primary/10 transition-colors"
+            disabled={isSaving}
+            className="rounded-full border border-primary/30 bg-transparent px-6 py-2.5 text-sm font-medium text-foreground hover:bg-primary/10 transition-colors disabled:opacity-70 disabled:pointer-events-none"
           >
             Cancelar
           </button>
