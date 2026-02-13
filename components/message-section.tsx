@@ -4,15 +4,17 @@ import { useEffect, useRef, useState } from "react"
 import { useInViewOnce } from "@/hooks/use-in-view-once"
 
 const lines = [
-  "Trabajamos uno frente al otro,",
+  "Siempre estamos muy cerca,",
   "y aunque no nos conocemos mucho,",
   "quise tomarme un momento",
-  "para decirte hola.",
+  "para hacer que eso cambie.",
   "",
-  "A veces los mejores encuentros",
-  "empiezan con un gesto sencillo.",
+  "Solo intento dejar un bonito gesto,",
+  "en este dia especial.",
   "",
-  "Este es el mio.",
+  "Y que te quedes con un buen recuerdo",
+  "y una buena impresion",
+  "de tu buen vecino."
 ]
 
 export function MessageSection() {
@@ -48,7 +50,7 @@ export function MessageSection() {
   }, [])
 
   return (
-    <section className="flex min-h-svh items-center justify-center px-6 py-20">
+    <section className="relative flex min-h-svh items-center justify-center px-6 py-20">
       <div
         ref={sectionRef}
         className={`reveal-in-view romantic-card ${sectionVisible ? "is-visible" : ""} w-full max-w-sm rounded-2xl bg-card p-8 shadow-sm cursor-default`}

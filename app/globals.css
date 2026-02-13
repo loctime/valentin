@@ -352,8 +352,9 @@ html {
     transform: none;
   }
 
-  .float-heart {
-    animation: none !important;
+  .float-heart-pulse {
+    animation: none;
+    opacity: 0.3;
   }
 
   .ambient-particle {
