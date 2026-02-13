@@ -13,7 +13,7 @@ export function HeroSection({ onContinue }: HeroSectionProps) {
 
       <div className="relative z-10 flex flex-col items-center gap-8 text-center">
         <div
-          className="animate-romantic-fade animate-romantic-in-delay-0 text-4xl"
+          className="heart-decorative text-4xl"
           aria-hidden="true"
         >
           {"<3"}

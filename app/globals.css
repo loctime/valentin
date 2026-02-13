@@ -93,6 +93,19 @@ html {
   50% { opacity: 0.7; }
 }
 
+/* Latido decorativo del corazón "<3": suave, 2–3 s, no distrae */
+@keyframes heart-beat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.heart-decorative {
+  opacity: 0;
+  animation:
+    fade-in 0.5s ease-out forwards,
+    heart-beat 2.5s ease-in-out 0.5s infinite;
+}
+
 /* Micro-interacciones botón principal: hover, tap, idle pulse */
 @keyframes btn-idle-pulse {
   0%, 3%, 100% { transform: scale(1); }
@@ -154,7 +167,8 @@ html {
   .animate-romantic-in-delay-3,
   .animate-romantic-in-delay-4,
   .animate-romantic-in-delay-5,
-  .animate-romantic-fade {
+  .animate-romantic-fade,
+  .heart-decorative {
     animation: none;
     opacity: 1;
     transform: none;
