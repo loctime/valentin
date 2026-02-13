@@ -52,7 +52,7 @@ export function InvitationSection() {
 
         <a
           href="#"
-          className="reveal-item reveal-item-2 w-full rounded-full bg-primary px-8 py-3.5 text-center text-sm font-medium text-primary-foreground shadow-md transition-all duration-300 hover:shadow-lg active:scale-95"
+          className="btn-romantic-cta reveal-item reveal-item-2 w-full rounded-full bg-primary px-8 py-3.5 text-center text-sm font-medium text-primary-foreground"
         >
           Escribirme
         </a>

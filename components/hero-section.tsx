@@ -31,7 +31,7 @@ export function HeroSection({ onContinue }: HeroSectionProps) {
 
         <button
           onClick={onContinue}
-          className="animate-romantic-in animate-romantic-in-delay-3 mt-4 rounded-full bg-primary px-8 py-3 text-sm font-medium text-primary-foreground shadow-md transition-all duration-300 hover:shadow-lg active:scale-95"
+          className="btn-romantic-cta animate-romantic-in animate-romantic-in-delay-3 mt-4 rounded-full bg-primary px-8 py-3 text-sm font-medium text-primary-foreground"
         >
           Continuar
         </button>
