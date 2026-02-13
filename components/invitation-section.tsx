@@ -19,9 +19,17 @@ export function InvitationSection({ onBackToStart }: InvitationSectionProps) {
         ref={ref}
         className={`flex w-full max-w-sm flex-col items-center gap-8 text-center ${visible ? "is-visible" : ""}`}
       >
-        <p className="font-serif text-xl leading-relaxed text-foreground sm:text-2xl">
-          ¿Qué te gustaría hacer?
-        </p>
+        <div className="relative">
+          <img
+            src="/CORA2.svg"
+            alt=""
+            className="pointer-events-none absolute left-1/2 top-1/2 h-40 w-52 -translate-x-1/2 -translate-y-1/2 object-contain opacity-55 sm:h-48 sm:w-64"
+            aria-hidden
+          />
+          <p className="relative z-10 font-serif text-xl leading-relaxed text-foreground sm:text-2xl">
+            ¿Qué te gustaría hacer?
+          </p>
+        </div>
 
         <SakuraFlowerSelector />
 
