@@ -2,7 +2,11 @@
 
 import { useInViewOnce } from "@/hooks/use-in-view-once"
 
-export function InvitationSection() {
+interface InvitationSectionProps {
+  onBackToStart?: () => void
+}
+
+export function InvitationSection({ onBackToStart }: InvitationSectionProps) {
   const [ref, visible] = useInViewOnce({
     threshold: 0.2,
     rootMargin: "0px 0px -5% 0px",
@@ -50,9 +54,20 @@ export function InvitationSection() {
           {"Y si solo viniste por los chocolates, tambien esta perfecto."}
         </p>
 
+        {onBackToStart && (
+          <button
+            type="button"
+            onClick={onBackToStart}
+            className="reveal-item reveal-item-4 btn-romantic-cta rounded-full border border-primary/30 bg-transparent px-6 py-2.5 text-xs font-medium text-foreground hover:bg-primary/10"
+            data-hearts-surprise
+          >
+            Volver al inicio
+          </button>
+        )}
+
         {/* small heart footer */}
         <svg
-          className="reveal-item reveal-item-4 mt-6 h-4 w-4 cursor-pointer text-[hsl(350_40%_62%)] opacity-35 animate-pulse-soft"
+          className={`reveal-item mt-6 h-4 w-4 cursor-pointer text-[hsl(350_40%_62%)] opacity-35 animate-pulse-soft ${onBackToStart ? "reveal-item-5" : "reveal-item-4"}`}
           viewBox="0 0 24 24"
           fill="currentColor"
           aria-hidden="true"

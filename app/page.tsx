@@ -3,13 +3,13 @@
 import { useEffect, useRef, useState } from "react"
 import { HeroSection } from "@/components/hero-section"
 import { MessageSection } from "@/components/message-section"
+import { MessageSection2 } from "@/components/message-section-2"
 import { InvitationSection } from "@/components/invitation-section"
 
-const SECTION_COUNT = 3
+const SECTION_COUNT = 4
 
 export default function Page() {
   const scrollRef = useRef<HTMLMainElement>(null)
-  const messageRef = useRef<HTMLDivElement>(null)
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
   const [opacities, setOpacities] = useState<number[]>(() =>
     Array.from({ length: SECTION_COUNT }, (_, i) => (i === 0 ? 1 : 0.72))
@@ -74,8 +74,9 @@ export default function Page() {
     return () => container.removeEventListener("scroll", onScroll)
   }, [])
 
-  function handleContinue() {
-    messageRef.current?.scrollIntoView({ behavior: "smooth" })
+  function handleScrollToSection(index: number) {
+    const el = sectionRefs.current[index]
+    el?.scrollIntoView({ behavior: "smooth" })
   }
 
   const scale = (i: number) => {
@@ -97,14 +98,11 @@ export default function Page() {
           transform: `scale(${scale(0)})`,
         }}
       >
-        <HeroSection onContinue={handleContinue} />
+        <HeroSection onContinue={() => handleScrollToSection(1)} />
       </div>
 
       <div
-        ref={(el) => {
-          messageRef.current = el
-          sectionRefs.current[1] = el
-        }}
+        ref={(el) => { sectionRefs.current[1] = el }}
         data-index={1}
         className="narrative-section"
         style={{
@@ -112,7 +110,7 @@ export default function Page() {
           transform: `scale(${scale(1)})`,
         }}
       >
-        <MessageSection />
+        <MessageSection onContinue={() => handleScrollToSection(2)} />
       </div>
 
       <div
@@ -124,7 +122,19 @@ export default function Page() {
           transform: `scale(${scale(2)})`,
         }}
       >
-        <InvitationSection />
+        <MessageSection2 onContinue={() => handleScrollToSection(3)} />
+      </div>
+
+      <div
+        ref={(el) => { sectionRefs.current[3] = el }}
+        data-index={3}
+        className="narrative-section"
+        style={{
+          opacity: opacities[3],
+          transform: `scale(${scale(3)})`,
+        }}
+      >
+        <InvitationSection onBackToStart={() => handleScrollToSection(0)} />
       </div>
     </main>
   )

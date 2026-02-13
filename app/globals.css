@@ -311,6 +311,26 @@ html {
   transform: translateY(0);
 }
 
+/* Segunda sección de mensaje: entrada desde la izquierda */
+.reveal-in-view-left {
+  opacity: 0;
+  transform: translateX(-24px);
+  transition:
+    opacity var(--duration-slow) var(--ease-out-smooth),
+    transform var(--duration-slow) var(--ease-out-smooth);
+}
+.reveal-in-view-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Líneas mensaje 2: transición desde la izquierda */
+.message-line-2 {
+  transition:
+    opacity var(--duration-slow) var(--ease-out-smooth),
+    transform var(--duration-slow) var(--ease-out-smooth);
+}
+
 /* Sección visible: hijos con stagger (para InvitationSection, etc.) */
 .section-reveal .reveal-item {
   opacity: 0;
@@ -377,6 +397,17 @@ html {
   .reveal-in-view.is-visible {
     opacity: 1;
     transform: none;
+  }
+
+  .reveal-in-view-left,
+  .reveal-in-view-left.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .message-line-2 {
+    transition: none;
   }
 
   .narrative-section {

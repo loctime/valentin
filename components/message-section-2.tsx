@@ -4,24 +4,20 @@ import { useEffect, useRef, useState } from "react"
 import { useInViewOnce } from "@/hooks/use-in-view-once"
 
 const lines = [
-  "Siempre estamos muy cerca,",
-  "y aunque no nos conocemos mucho,",
-  "quise tomarme un momento",
-  "para hacer que eso cambie.",
+  "Que este pequeño detalle",
+  "te traiga una sonrisa",
+  "y que siempre que lo recuerdes",
+  "sepas que hay alguien cerca",
+  "que te desea lo mejor.",
   "",
-  "Solo intento dejar un bonito gesto,",
-  "en este dia especial.",
-  "",
-  "Y que te quedes con un buen recuerdo",
-  "y una buena impresion",
-  "de tu buen vecino."
+  "Gracias por ser tan buena vecina.",
 ]
 
-interface MessageSectionProps {
+interface MessageSection2Props {
   onContinue?: () => void
 }
 
-export function MessageSection({ onContinue }: MessageSectionProps) {
+export function MessageSection2({ onContinue }: MessageSection2Props) {
   const [visibleLines, setVisibleLines] = useState<number[]>([])
   const lineRefs = useRef<(HTMLParagraphElement | null)[]>([])
   const [sectionRef, sectionVisible] = useInViewOnce({
@@ -43,7 +39,7 @@ export function MessageSection({ onContinue }: MessageSectionProps) {
           }
         })
       },
-      { threshold: 0.3, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.25, rootMargin: "0px 0px -15% 0px" }
     )
 
     lineRefs.current.forEach((ref) => {
@@ -57,18 +53,23 @@ export function MessageSection({ onContinue }: MessageSectionProps) {
     <section className="relative flex min-h-svh items-center justify-center px-6 py-20">
       <div
         ref={sectionRef}
-        className={`reveal-in-view romantic-card ${sectionVisible ? "is-visible" : ""} w-full max-w-sm rounded-2xl bg-card p-8 shadow-sm cursor-default`}
-        data-hearts-surprise
+        className={`reveal-in-view-left w-full max-w-sm rounded-xl border border-border/80 bg-card/95 py-8 pl-8 pr-8 shadow-sm cursor-default ${sectionVisible ? "is-visible" : ""}`}
+        style={{
+          borderLeftWidth: "4px",
+          borderLeftColor: "hsl(var(--primary))",
+        }}
       >
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2">
           {lines.map((line, i) => {
             if (line === "") {
               return (
                 <div
                   key={i}
-                  ref={(el) => { lineRefs.current[i] = el as HTMLParagraphElement }}
+                  ref={(el) => {
+                    lineRefs.current[i] = el as HTMLParagraphElement
+                  }}
                   data-index={i}
-                  className="h-4"
+                  className="h-3"
                   aria-hidden="true"
                 />
               )
@@ -79,15 +80,17 @@ export function MessageSection({ onContinue }: MessageSectionProps) {
             return (
               <p
                 key={i}
-                ref={(el) => { lineRefs.current[i] = el }}
+                ref={(el) => {
+                  lineRefs.current[i] = el
+                }}
                 data-index={i}
-                className="message-line font-serif text-lg leading-relaxed text-card-foreground"
+                className="message-line-2 font-serif text-base leading-relaxed text-muted-foreground"
                 style={{
                   opacity: isVisible ? 1 : 0,
                   transform: isVisible
-                    ? "translateY(0)"
-                    : "translateY(12px)",
-                  transitionDelay: isVisible ? `${i * 0.08}s` : "0s",
+                    ? "translateX(0)"
+                    : "translateX(-16px)",
+                  transitionDelay: isVisible ? `${i * 0.1}s` : "0s",
                 }}
               >
                 {line}
