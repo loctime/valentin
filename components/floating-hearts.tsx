@@ -33,7 +33,7 @@ export function FloatingHearts() {
       {hearts.map((heart) => (
         <svg
           key={heart.id}
-          className="absolute"
+          className="float-heart absolute"
           style={{
             left: heart.left,
             top: heart.top,

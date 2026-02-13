@@ -59,22 +59,11 @@ html {
   scroll-behavior: smooth;
 }
 
-@keyframes float-heart {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg) scale(1);
-  }
-  25% {
-    transform: translateY(-12px) rotate(3deg) scale(1.05);
-  }
-  75% {
-    transform: translateY(6px) rotate(-2deg) scale(0.97);
-  }
-}
-
+/* --- Animaciones suaves (románticas, 0.4s–0.8s, ease-out) --- */
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -87,7 +76,102 @@ html {
   to { opacity: 1; }
 }
 
+@keyframes float-heart {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-12px) rotate(3deg) scale(1.05);
+  }
+  75% {
+    transform: translateY(6px) rotate(-2deg) scale(0.97);
+  }
+}
+
 @keyframes pulse-soft {
   0%, 100% { opacity: 0.35; }
   50% { opacity: 0.7; }
+}
+
+/* Utilidades: entrada escalonada (stagger) */
+.animate-romantic-in {
+  opacity: 0;
+  animation: fade-in-up 0.65s ease-out forwards;
+}
+.animate-romantic-in-delay-0 { animation-delay: 0s; }
+.animate-romantic-in-delay-1 { animation-delay: 0.15s; }
+.animate-romantic-in-delay-2 { animation-delay: 0.35s; }
+.animate-romantic-in-delay-3 { animation-delay: 0.55s; }
+.animate-romantic-in-delay-4 { animation-delay: 0.75s; }
+.animate-romantic-in-delay-5 { animation-delay: 0.95s; }
+
+.animate-romantic-fade {
+  opacity: 0;
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+/* Sección visible: hijos con stagger (para InvitationSection, etc.) */
+.section-reveal .reveal-item {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+.section-reveal .reveal-item-0 { animation-delay: 0s; }
+.section-reveal .reveal-item-1 { animation-delay: 0.12s; }
+.section-reveal .reveal-item-2 { animation-delay: 0.24s; }
+.section-reveal .reveal-item-3 { animation-delay: 0.36s; }
+.section-reveal .reveal-item-4 { animation-delay: 0.48s; }
+.section-reveal .reveal-item-5 { animation-delay: 0.6s; }
+
+/* Respetar prefers-reduced-motion: sin movimiento, aparición inmediata */
+@media (prefers-reduced-motion: reduce) {
+  .animate-romantic-in,
+  .animate-romantic-in-delay-0,
+  .animate-romantic-in-delay-1,
+  .animate-romantic-in-delay-2,
+  .animate-romantic-in-delay-3,
+  .animate-romantic-in-delay-4,
+  .animate-romantic-in-delay-5,
+  .animate-romantic-fade {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .section-reveal .reveal-item,
+  .section-reveal .reveal-item-0,
+  .section-reveal .reveal-item-1,
+  .section-reveal .reveal-item-2,
+  .section-reveal .reveal-item-3,
+  .section-reveal .reveal-item-4,
+  .section-reveal .reveal-item-5 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .float-heart {
+    animation: none !important;
+  }
+
+  .animate-pulse-soft {
+    animation: none !important;
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 4s ease-in-out infinite;
+}
+
+/* Líneas del mensaje: transición suave con stagger */
+.message-line {
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .message-line {
+    transition: none;
+  }
 }
