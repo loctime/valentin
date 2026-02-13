@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { useInViewOnce } from "@/hooks/use-in-view-once"
 
 const lines = [
-  "De lejos siempre te ví",
+  "De lejos siempre te vi",
   "brillando con tu alegría y amabilidad.",
   "",
   "Espero que esto te recuerde",

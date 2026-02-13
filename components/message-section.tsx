@@ -9,11 +9,11 @@ const lines = [
   "quise tomarme un momento",
   "para hacer que eso cambie.",
   "",
-  "Solo intento dejar un bonito gesto en este dia especial.",
+  "Solo intento dejar un bonito gesto en este día especial.",
   "",
   "",
   "Y que te quedes con un recuerdo",
-  "y una buena impresion",
+  "y una buena impresión",
   "de tu vecino cercano."
 ]
 

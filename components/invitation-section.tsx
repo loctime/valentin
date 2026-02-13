@@ -85,13 +85,13 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
             aria-hidden
           />
           <p className="relative z-10 font-serif text-xl leading-relaxed text-foreground sm:text-2xl">
-            Quiero invitarte a salir! <br /><br /><b>Podemos hacer un monton de cosas!
+            Quiero invitarte a salir <br /><br /><b>Podemos hacer un montón de cosas
            
             </b>
           </p>
         </div>
         <div className="flex flex-col items-center gap-4">
-          <p className="text-xs text-muted-foreground">presiona los petalos!</p>
+          <p className="text-xs text-muted-foreground">Presiona los pétalos!</p>
           <SakuraFlowerSelector
             key={formKey}
             onSelectionChange={handleSelectionChange}
