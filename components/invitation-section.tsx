@@ -23,6 +23,7 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
   const [nombre, setNombre] = useState("")
   const [telefono, setTelefono] = useState("")
   const [isSaving, setIsSaving] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isProposalOpen, setIsProposalOpen] = useState(false)
   const [formKey, setFormKey] = useState(0)
@@ -41,6 +42,7 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
     async (payload: ProposalConfirmPayload) => {
       if (!payload.nombre.trim()) return
 
+      setSaveError(null)
       setIsSaving(true)
       try {
         await saveInvitationResponse({
@@ -62,8 +64,11 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
         setTelefono("")
         setFormKey((k) => k + 1)
         onProposalConfirm?.(payload)
-      } catch {
-        // TODO: mostrar error al usuario (ej. toast o estado de error)
+      } catch (err) {
+        const message =
+          err instanceof Error ? err.message : "No se pudo guardar la respuesta."
+        console.error("[Invitation] Error al guardar:", err)
+        setSaveError(message)
       } finally {
         setIsSaving(false)
       }
@@ -131,9 +136,13 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
           onChangeTelefono={setTelefono}
           customMessage={customMessage}
           onChangeCustomMessage={setCustomMessage}
-          onClose={() => setIsProposalOpen(false)}
+          onClose={() => {
+            setIsProposalOpen(false)
+            setSaveError(null)
+          }}
           onConfirm={handleConfirm}
           isSaving={isSaving}
+          saveError={saveError}
         />
 
         <ConfirmModal

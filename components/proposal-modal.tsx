@@ -21,6 +21,7 @@ interface ProposalModalProps {
   onClose: () => void
   onConfirm: (payload: ProposalConfirmPayload) => void
   isSaving?: boolean
+  saveError?: string | null
 }
 
 const HeartBullet = () => (
@@ -46,6 +47,7 @@ export function ProposalModal({
   onClose,
   onConfirm,
   isSaving = false,
+  saveError = null,
 }: ProposalModalProps) {
   useEffect(() => {
     if (open) {
@@ -159,6 +161,11 @@ export function ProposalModal({
           className="mt-4 w-full rounded-xl border border-primary/20 bg-background/50 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-70"
         />
 
+        {saveError && (
+          <p className="mt-4 rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive" role="alert">
+            {saveError}
+          </p>
+        )}
         <div className="mt-6 flex flex-wrap gap-3 justify-center">
           <button
             type="button"
