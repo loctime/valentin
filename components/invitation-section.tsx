@@ -3,27 +3,34 @@
 import { useState, useCallback } from "react"
 import { useInViewOnce } from "@/hooks/use-in-view-once"
 import { SakuraFlowerSelector } from "@/components/sakura-flower-selector"
-import { ConfirmationModal } from "@/components/confirmation-modal"
+import { ProposalModal } from "@/components/proposal-modal"
+import type { ProposalConfirmPayload } from "@/components/proposal-modal"
 
 interface InvitationSectionProps {
   onBackToStart?: () => void
+  onProposalConfirm?: (payload: ProposalConfirmPayload) => void
 }
 
-export function InvitationSection({ onBackToStart }: InvitationSectionProps) {
+export function InvitationSection({ onBackToStart, onProposalConfirm }: InvitationSectionProps) {
   const [ref, visible] = useInViewOnce({
     threshold: 0.2,
     rootMargin: "0px 0px -5% 0px",
   })
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
-  const [modalOpen, setModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [customIdea, setCustomIdea] = useState("")
 
   const handleSelectionChange = useCallback((options: string[]) => {
     setSelectedOptions(options)
   }, [])
 
-  const handleConfirm = useCallback(() => {
-    setModalOpen(false)
-  }, [])
+  const handleConfirm = useCallback(
+    (payload: ProposalConfirmPayload) => {
+      setIsModalOpen(false)
+      onProposalConfirm?.(payload)
+    },
+    [onProposalConfirm]
+  )
 
   return (
     <section className="flex min-h-svh items-center justify-center px-6 py-20">
@@ -49,11 +56,11 @@ export function InvitationSection({ onBackToStart }: InvitationSectionProps) {
           <SakuraFlowerSelector onSelectionChange={handleSelectionChange} />
           <button
             type="button"
-            onClick={() => setModalOpen(true)}
+            onClick={() => setIsModalOpen(true)}
             disabled={selectedOptions.length === 0}
             className="btn-romantic-cta rounded-full border border-primary/30 bg-primary/10 px-6 py-2.5 text-sm font-medium text-foreground shadow-sm hover:bg-primary/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
-            Aceptar propuesta
+            👉 Aceptar propuesta
           </button>
         </div>
 
@@ -73,11 +80,13 @@ export function InvitationSection({ onBackToStart }: InvitationSectionProps) {
           </button>
         )}
 
-        <ConfirmationModal
-          isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
+        <ProposalModal
+          open={isModalOpen}
+          selections={selectedOptions}
+          customIdea={customIdea}
+          onChangeCustomIdea={setCustomIdea}
+          onClose={() => setIsModalOpen(false)}
           onConfirm={handleConfirm}
-          options={selectedOptions}
         />
 
         <svg
