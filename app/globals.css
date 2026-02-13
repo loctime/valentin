@@ -104,7 +104,7 @@ html.narrative-scroll-active body {
 
 .narrative-section {
   scroll-snap-align: start;
-  scroll-snap-stop: normal;
+  scroll-snap-stop: always;
   min-height: 100dvh;
   transition:
     opacity var(--duration-normal) var(--ease-out-smooth),

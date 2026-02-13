@@ -9,12 +9,12 @@ const lines = [
   "quise tomarme un momento",
   "para hacer que eso cambie.",
   "",
-  "Solo intento dejar un bonito gesto,",
-  "en este dia especial.",
+  "Solo intento dejar un bonito gesto en este dia especial.",
   "",
-  "Y que te quedes con un buen recuerdo",
+  "",
+  "Y que te quedes con un recuerdo",
   "y una buena impresion",
-  "de tu buen vecino."
+  "de tu vecino cercano."
 ]
 
 interface MessageSectionProps {
