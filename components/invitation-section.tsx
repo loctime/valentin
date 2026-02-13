@@ -15,7 +15,7 @@ export function InvitationSection() {
         className={`reveal-in-view flex w-full max-w-sm flex-col items-center gap-8 text-center ${visible ? "is-visible section-reveal" : ""}`}
       >
         {/* coffee icon */}
-        <div className="reveal-item reveal-item-0 flex h-14 w-14 items-center justify-center rounded-full bg-secondary" aria-hidden="true">
+        <div className="reveal-item reveal-item-0 romantic-icon flex h-14 w-14 items-center justify-center rounded-full bg-secondary" aria-hidden="true">
           <svg
             width="24"
             height="24"

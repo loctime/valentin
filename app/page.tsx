@@ -78,6 +78,11 @@ export default function Page() {
     messageRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
+  const scale = (i: number) => {
+    const o = opacities[i] ?? 0.72
+    return 0.98 + ((o - 0.65) / 0.35) * 0.02
+  }
+
   return (
     <main
       ref={scrollRef}
@@ -87,7 +92,10 @@ export default function Page() {
         ref={(el) => { sectionRefs.current[0] = el }}
         data-index={0}
         className="narrative-section"
-        style={{ opacity: opacities[0] }}
+        style={{
+          opacity: opacities[0],
+          transform: `scale(${scale(0)})`,
+        }}
       >
         <HeroSection onContinue={handleContinue} />
       </div>
@@ -99,7 +107,10 @@ export default function Page() {
         }}
         data-index={1}
         className="narrative-section"
-        style={{ opacity: opacities[1] }}
+        style={{
+          opacity: opacities[1],
+          transform: `scale(${scale(1)})`,
+        }}
       >
         <MessageSection />
       </div>
@@ -108,7 +119,10 @@ export default function Page() {
         ref={(el) => { sectionRefs.current[2] = el }}
         data-index={2}
         className="narrative-section"
-        style={{ opacity: opacities[2] }}
+        style={{
+          opacity: opacities[2],
+          transform: `scale(${scale(2)})`,
+        }}
       >
         <InvitationSection />
       </div>

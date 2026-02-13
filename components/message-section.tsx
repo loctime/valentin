@@ -51,7 +51,7 @@ export function MessageSection() {
     <section className="flex min-h-svh items-center justify-center px-6 py-20">
       <div
         ref={sectionRef}
-        className={`reveal-in-view ${sectionVisible ? "is-visible" : ""} w-full max-w-sm rounded-2xl bg-card p-8 shadow-sm cursor-default`}
+        className={`reveal-in-view romantic-card ${sectionVisible ? "is-visible" : ""} w-full max-w-sm rounded-2xl bg-card p-8 shadow-sm cursor-default`}
         data-hearts-surprise
       >
         <div className="flex flex-col gap-1">

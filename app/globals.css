@@ -10,6 +10,13 @@
 
 @layer base {
   :root {
+    /* Motion: premium feel, consistent timing */
+    --ease-out-smooth: cubic-bezier(0.33, 1, 0.68, 1);
+    --ease-out-premium: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --duration-instant: 0.15s;
+    --duration-fast: 0.25s;
+    --duration-normal: 0.4s;
+    --duration-slow: 0.6s;
     --background: 30 30% 96%;
     --foreground: 20 15% 20%;
     --card: 30 25% 93%;
@@ -100,7 +107,10 @@ html.narrative-scroll-active body {
   scroll-snap-stop: normal;
   min-height: 100vh;
   min-height: 100dvh;
-  transition: opacity 0.4s ease-out;
+  transition:
+    opacity var(--duration-normal) var(--ease-out-smooth),
+    transform var(--duration-normal) var(--ease-out-smooth);
+  transform-origin: center center;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -241,7 +251,9 @@ html {
 }
 
 .btn-romantic-cta {
-  transition: transform 0.22s ease-out, box-shadow 0.3s ease-out;
+  transition:
+    transform var(--duration-fast) var(--ease-out-smooth),
+    box-shadow var(--duration-normal) var(--ease-out-smooth);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   animation: btn-idle-pulse 5s ease-in-out 2s infinite;
 }
@@ -252,8 +264,18 @@ html {
 }
 .btn-romantic-cta:active {
   transform: scale(0.97);
-  transition-duration: 0.1s;
+  transition-duration: var(--duration-instant);
   animation-play-state: paused;
+}
+
+/* Focus visible: elegante y accesible */
+.btn-romantic-cta:focus-visible,
+.romantic-focusable:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px hsl(var(--background)),
+    0 0 0 4px hsl(var(--primary) / 0.5);
+  transition: box-shadow var(--duration-fast) var(--ease-out-smooth);
 }
 
 /* Utilidades: entrada escalonada (stagger) */
@@ -278,8 +300,8 @@ html {
   opacity: 0;
   transform: translateY(14px);
   transition:
-    opacity 0.6s ease-out,
-    transform 0.6s ease-out;
+    opacity var(--duration-slow) var(--ease-out-smooth),
+    transform var(--duration-slow) var(--ease-out-smooth);
 }
 .reveal-in-view.is-visible {
   opacity: 1;
@@ -352,17 +374,49 @@ html {
     opacity: 1;
     transform: none;
   }
+
+  .narrative-section {
+    transform: scale(1) !important;
+  }
+
+  .romantic-card:hover,
+  .romantic-icon:hover {
+    transform: none;
+  }
 }
 
 .animate-pulse-soft {
   animation: pulse-soft 4s ease-in-out infinite;
 }
 
+/* Tarjeta del mensaje: micro-interacción hover (lift sutil) */
+.romantic-card {
+  transition:
+    transform var(--duration-normal) var(--ease-out-smooth),
+    box-shadow var(--duration-normal) var(--ease-out-smooth);
+}
+@media (hover: hover) {
+  .romantic-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* Icono romántico (café, etc.): hover delicado */
+.romantic-icon {
+  transition: transform var(--duration-normal) var(--ease-out-smooth);
+}
+@media (hover: hover) {
+  .romantic-icon:hover {
+    transform: scale(1.04);
+  }
+}
+
 /* Líneas del mensaje: transición suave con stagger */
 .message-line {
   transition:
-    opacity 0.6s ease-out,
-    transform 0.6s ease-out;
+    opacity var(--duration-slow) var(--ease-out-smooth),
+    transform var(--duration-slow) var(--ease-out-smooth);
 }
 
 @media (prefers-reduced-motion: reduce) {
