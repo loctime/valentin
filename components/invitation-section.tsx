@@ -1,6 +1,7 @@
 "use client"
 
 import { useInViewOnce } from "@/hooks/use-in-view-once"
+import { SakuraFlowerSelector } from "@/components/sakura-flower-selector"
 
 interface InvitationSectionProps {
   onBackToStart?: () => void
@@ -16,58 +17,32 @@ export function InvitationSection({ onBackToStart }: InvitationSectionProps) {
     <section className="flex min-h-svh items-center justify-center px-6 py-20">
       <div
         ref={ref}
-        className={`reveal-in-view flex w-full max-w-sm flex-col items-center gap-8 text-center ${visible ? "is-visible section-reveal" : ""}`}
+        className={`flex w-full max-w-sm flex-col items-center gap-8 text-center ${visible ? "is-visible" : ""}`}
       >
-        {/* coffee icon */}
-        <div className="reveal-item reveal-item-0 romantic-icon flex h-14 w-14 items-center justify-center rounded-full bg-secondary" aria-hidden="true">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="hsl(20 15% 20%)"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M17 8h1a4 4 0 1 1 0 8h-1" />
-            <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z" />
-            <line x1="6" y1="2" x2="6" y2="4" />
-            <line x1="10" y1="2" x2="10" y2="4" />
-            <line x1="14" y1="2" x2="14" y2="4" />
-          </svg>
-        </div>
-
-        <p className="reveal-item reveal-item-1 font-serif text-xl leading-relaxed text-foreground sm:text-2xl">
-          {"Si te gustaria tomar un cafe algun dia, me encantaria invitarte :)"}
+        <p className="font-serif text-xl leading-relaxed text-foreground sm:text-2xl">
+          ¿Qué te gustaría hacer?
         </p>
 
-        <a
-          href="#"
-          className="btn-romantic-cta reveal-item reveal-item-2 w-full rounded-full bg-primary px-8 py-3.5 text-center text-sm font-medium text-primary-foreground"
-          data-hearts-surprise
-        >
-          Escribirme
-        </a>
+        <SakuraFlowerSelector />
 
-        <p className="reveal-item reveal-item-3 max-w-[240px] text-xs leading-relaxed text-muted-foreground">
-          {"Y si solo viniste por los chocolates, tambien esta perfecto."}
+        <p className="max-w-[260px] text-xs leading-relaxed text-muted-foreground">
+          Elige una o varias opciones. Y si solo viniste por los chocolates,
+          también está perfecto.
         </p>
 
         {onBackToStart && (
           <button
             type="button"
             onClick={onBackToStart}
-            className="reveal-item reveal-item-4 btn-romantic-cta rounded-full border border-primary/30 bg-transparent px-6 py-2.5 text-xs font-medium text-foreground hover:bg-primary/10"
+            className="btn-romantic-cta rounded-full border border-primary/30 bg-transparent px-6 py-2.5 text-xs font-medium text-foreground hover:bg-primary/10"
             data-hearts-surprise
           >
             Volver al inicio
           </button>
         )}
 
-        {/* small heart footer */}
         <svg
-          className={`reveal-item mt-6 h-4 w-4 cursor-pointer text-[hsl(350_40%_62%)] opacity-35 animate-pulse-soft ${onBackToStart ? "reveal-item-5" : "reveal-item-4"}`}
+          className="h-4 w-4 cursor-pointer text-[hsl(350_40%_62%)] opacity-35 animate-pulse-soft"
           viewBox="0 0 24 24"
           fill="currentColor"
           aria-hidden="true"

@@ -214,6 +214,56 @@ html {
   to { opacity: 1; }
 }
 
+/* Flor romántica: entrada del pétalo (stagger) + breathing muy leve */
+@keyframes petal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes petal-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.flower-petal-breathe {
+  --stagger: 0s;
+  opacity: 0;
+  animation:
+    petal-in 0.5s var(--ease-out-smooth) var(--stagger) forwards,
+    petal-breathe 4.5s ease-in-out calc(0.5s + var(--stagger)) infinite;
+}
+
+.flower-center {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.92);
+  transition:
+    opacity var(--duration-slow) var(--ease-out-smooth),
+    transform var(--duration-slow) var(--ease-out-smooth);
+}
+
+.reveal-in-view.is-visible .flower-center,
+.is-visible .flower-center {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Sakura flower selector: pétalos clickeables, petal popping */
+.sakura-flower-selector {
+  margin: 0 auto;
+}
+
+.sakura-petal {
+  transition:
+    fill var(--duration-normal) var(--ease-out-smooth),
+    transform var(--duration-normal) var(--ease-out-smooth);
+}
+
 /* Corazones de fondo: flotación suave tipo sine, sin tirones */
 @keyframes float-heart {
   0%, 100% {
@@ -403,6 +453,21 @@ html {
 
   .animate-pulse-soft {
     animation: none !important;
+  }
+
+  .flower-petal-breathe {
+    opacity: 1;
+    animation: none;
+  }
+
+  .flower-center {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    transition: none;
+  }
+
+  .sakura-petal {
+    transition: none;
   }
 
   .btn-romantic-cta {
