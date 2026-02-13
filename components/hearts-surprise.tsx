@@ -63,6 +63,33 @@ export function HeartsSurprise() {
     return () => document.removeEventListener("click", handleClick)
   }, [spawnHearts])
 
+  // En móvil: activar corazones al terminar un scroll con el dedo
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null)
+  const SCROLL_THRESHOLD_PX = 20
+
+  useEffect(() => {
+    function handleTouchStart(e: TouchEvent) {
+      const t = e.touches[0]
+      if (t) touchStartRef.current = { x: t.clientX, y: t.clientY }
+    }
+    function handleTouchEnd(e: TouchEvent) {
+      const start = touchStartRef.current
+      touchStartRef.current = null
+      if (!start || e.changedTouches.length === 0) return
+      const end = e.changedTouches[0]
+      const dx = end.clientX - start.x
+      const dy = end.clientY - start.y
+      const moved = Math.sqrt(dx * dx + dy * dy) >= SCROLL_THRESHOLD_PX
+      if (moved) spawnHearts(end.clientX, end.clientY)
+    }
+    document.addEventListener("touchstart", handleTouchStart, { passive: true })
+    document.addEventListener("touchend", handleTouchEnd, { passive: true })
+    return () => {
+      document.removeEventListener("touchstart", handleTouchStart)
+      document.removeEventListener("touchend", handleTouchEnd)
+    }
+  }, [spawnHearts])
+
   return (
     <div
       className="pointer-events-none fixed inset-0 z-[100]"
