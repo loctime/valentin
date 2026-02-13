@@ -18,12 +18,12 @@ export function FloatingHearts() {
   useEffect(() => {
     const generated: Heart[] = Array.from({ length: 8 }, (_, i) => ({
       id: i,
-      left: `${Math.random() * 90 + 5}%`,
-      top: `${Math.random() * 80 + 10}%`,
-      size: Math.random() * 14 + 8,
-      delay: Math.random() * 4,
-      duration: Math.random() * 4 + 5,
-      opacity: Math.random() * 0.25 + 0.1,
+      left: `${Math.random() * 88 + 6}%`,
+      top: `${Math.random() * 82 + 8}%`,
+      size: Math.random() * 12 + 10,
+      delay: Math.random() * 6,
+      duration: Math.random() * 6 + 12,
+      opacity: Math.random() * 0.2 + 0.12,
     }))
     setHearts(generated)
   }, [])
@@ -40,7 +40,7 @@ export function FloatingHearts() {
             width: heart.size,
             height: heart.size,
             opacity: heart.opacity,
-            animation: `float-heart ${heart.duration}s ease-in-out ${heart.delay}s infinite`,
+            animation: `float-heart ${heart.duration}s cubic-bezier(0.4, 0, 0.6, 1) ${heart.delay}s infinite`,
           }}
           viewBox="0 0 24 24"
           fill="hsl(350 40% 62%)"

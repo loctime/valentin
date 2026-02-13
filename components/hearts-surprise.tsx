@@ -57,8 +57,7 @@ export function HeartsSurprise() {
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
-      const target = (e.target as HTMLElement).closest("[data-hearts-surprise]")
-      if (target) spawnHearts(e.clientX, e.clientY)
+      spawnHearts(e.clientX, e.clientY)
     }
     document.addEventListener("click", handleClick, { passive: true })
     return () => document.removeEventListener("click", handleClick)
