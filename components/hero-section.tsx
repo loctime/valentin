@@ -17,13 +17,21 @@ export function HeroSection({ onContinue }: HeroSectionProps) {
           data-hearts-surprise
           aria-hidden="true"
         >
-          {"<3"}
+          <img
+            src="/cora.svg"
+            alt=""
+            className="h-16 w-16 object-contain sm:h-20 sm:w-20"
+          />
         </div>
 
         <h1 className="animate-romantic-in animate-romantic-in-delay-1 max-w-xs font-serif text-2xl leading-relaxed tracking-tight text-foreground sm:text-3xl">
-          <span className="text-balance">
-            {"Hola :) Si llegaste aqui es porque escaneaste el QR."}
-          </span>
+        <span className="text-balance whitespace-pre-line">
+{`Hola Carli
+
+:)
+
+Si llegaste hasta acá es porque fuiste más allá de los chocolates.`}
+</span>
         </h1>
 
         <p className="animate-romantic-in animate-romantic-in-delay-2 max-w-[260px] text-sm leading-relaxed text-muted-foreground">
