@@ -1,30 +1,18 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useInViewOnce } from "@/hooks/use-in-view-once"
 
 export function InvitationSection() {
-  const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true)
-        }
-      },
-      { threshold: 0.3 }
-    )
-
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
+  const [ref, visible] = useInViewOnce({
+    threshold: 0.2,
+    rootMargin: "0px 0px -5% 0px",
+  })
 
   return (
     <section className="flex min-h-[70svh] items-center justify-center px-6 py-20">
       <div
         ref={ref}
-        className={`flex w-full max-w-sm flex-col items-center gap-8 text-center ${visible ? "section-reveal" : ""}`}
+        className={`reveal-in-view flex w-full max-w-sm flex-col items-center gap-8 text-center ${visible ? "is-visible section-reveal" : ""}`}
       >
         {/* coffee icon */}
         <div className="reveal-item reveal-item-0 flex h-14 w-14 items-center justify-center rounded-full bg-secondary" aria-hidden="true">

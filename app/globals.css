@@ -145,6 +145,19 @@ html {
   animation: fade-in 0.5s ease-out forwards;
 }
 
+/* Entrada al viewport: fade-in + translateY, solo la primera vez */
+.reveal-in-view {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+}
+.reveal-in-view.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Sección visible: hijos con stagger (para InvitationSection, etc.) */
 .section-reveal .reveal-item {
   opacity: 0;
@@ -196,6 +209,16 @@ html {
 
   .btn-romantic-cta {
     animation: none;
+  }
+
+  .reveal-in-view {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .reveal-in-view.is-visible {
+    opacity: 1;
+    transform: none;
   }
 }
 
