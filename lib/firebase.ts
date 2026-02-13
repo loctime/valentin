@@ -11,17 +11,17 @@ const firebaseConfig = {
 }
 
 let app: FirebaseApp | undefined
-let db: Firestore | undefined
+let cachedDb: Firestore | undefined
 
 function getDb(): Firestore {
   if (typeof window === "undefined") {
     throw new Error("Firebase is only available on the client.")
   }
-  if (!db) {
+  if (!cachedDb) {
     app = initializeApp(firebaseConfig)
-    db = getFirestore(app)
+    cachedDb = getFirestore(app)
   }
-  return db
+  return cachedDb
 }
 
 /** Firestore instance (lazy-initialized on client). Use db() when calling from client code. */
