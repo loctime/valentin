@@ -14,6 +14,7 @@ export function HeroSection({ onContinue }: HeroSectionProps) {
       <div className="relative z-10 flex flex-col items-center gap-8 text-center">
         <div
           className="heart-decorative text-4xl"
+          data-hearts-surprise
           aria-hidden="true"
         >
           {"<3"}
@@ -32,6 +33,7 @@ export function HeroSection({ onContinue }: HeroSectionProps) {
         <button
           onClick={onContinue}
           className="btn-romantic-cta animate-romantic-in animate-romantic-in-delay-3 mt-4 rounded-full bg-primary px-8 py-3 text-sm font-medium text-primary-foreground"
+          data-hearts-surprise
         >
           Continuar
         </button>
