@@ -9,7 +9,7 @@ export function InvitationSection() {
   })
 
   return (
-    <section className="flex min-h-[70svh] items-center justify-center px-6 py-20">
+    <section className="flex min-h-svh items-center justify-center px-6 py-20">
       <div
         ref={ref}
         className={`reveal-in-view flex w-full max-w-sm flex-col items-center gap-8 text-center ${visible ? "is-visible section-reveal" : ""}`}

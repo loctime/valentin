@@ -54,7 +54,7 @@
     @apply bg-background text-foreground;
     position: relative;
   }
-  /* Fondo con gradiente animado muy sutil: profundidad sin distraer */
+  /* Fondo con gradiente animado muy sutil + parallax al hacer scroll */
   body::before {
     content: "";
     position: fixed;
@@ -72,6 +72,41 @@
     background-size: 200% 200%;
     opacity: 0.85;
     animation: gradient-drift 28s ease-in-out infinite;
+    transform: translateY(var(--parallax-y, 0px));
+    will-change: transform;
+  }
+}
+
+/* Scroll narrativo: una sección ≈ viewport, transición fade, snap suave */
+html.narrative-scroll-active,
+html.narrative-scroll-active body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.narrative-scroll {
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.narrative-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  min-height: 100vh;
+  min-height: 100dvh;
+  transition: opacity 0.4s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .narrative-scroll {
+    scroll-snap-type: none;
+  }
+  body::before {
+    transform: none;
   }
 }
 
