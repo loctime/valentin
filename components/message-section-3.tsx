@@ -52,7 +52,7 @@ export function MessageSection3({ onContinue }: MessageSection3Props) {
   }, [])
 
   return (
-    <section className="relative flex min-h-svh items-center justify-center px-6 py-20">
+    <section className="relative flex min-h-[100dvh] items-center justify-center px-6 py-20">
       <div
         ref={sectionRef}
         className={`reveal-in-view-scale w-full max-w-sm rounded-2xl bg-card/90 py-8 px-8 shadow-md cursor-default ${sectionVisible ? "is-visible" : ""}`}

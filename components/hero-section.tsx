@@ -8,7 +8,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ onContinue }: HeroSectionProps) {
   return (
-    <section className="relative flex min-h-svh flex-col items-center justify-center px-6">
+    <section className="relative flex min-h-[100dvh] flex-col items-center justify-center px-6">
       <FloatingHearts />
 
       <div className="relative z-10 flex flex-col items-center gap-8 text-center">

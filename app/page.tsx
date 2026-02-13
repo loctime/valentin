@@ -10,7 +10,7 @@ import { InvitationSection } from "@/components/invitation-section"
 const SECTION_COUNT = 5
 
 export default function Page() {
-  const scrollRef = useRef<HTMLMainElement>(null)
+  const scrollRef = useRef<HTMLElement>(null)
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
   const [opacities, setOpacities] = useState<number[]>(() =>
     Array.from({ length: SECTION_COUNT }, (_, i) => (i === 0 ? 1 : 0.72))
@@ -93,10 +93,10 @@ export default function Page() {
       <div
         ref={(el) => { sectionRefs.current[0] = el }}
         data-index={0}
-        className="narrative-section"
+        className="narrative-section section-transition section-depth"
         style={{
           opacity: opacities[0],
-          transform: `scale(${scale(0)})`,
+          transform: `scale(${scale(0)}) translateZ(0)`,
         }}
       >
         <HeroSection onContinue={() => handleScrollToSection(1)} />
@@ -105,10 +105,10 @@ export default function Page() {
       <div
         ref={(el) => { sectionRefs.current[1] = el }}
         data-index={1}
-        className="narrative-section"
+        className="narrative-section section-transition section-depth"
         style={{
           opacity: opacities[1],
-          transform: `scale(${scale(1)})`,
+          transform: `scale(${scale(1)}) translateZ(0)`,
         }}
       >
         <MessageSection onContinue={() => handleScrollToSection(2)} />
@@ -117,10 +117,10 @@ export default function Page() {
       <div
         ref={(el) => { sectionRefs.current[2] = el }}
         data-index={2}
-        className="narrative-section"
+        className="narrative-section section-transition section-depth"
         style={{
           opacity: opacities[2],
-          transform: `scale(${scale(2)})`,
+          transform: `scale(${scale(2)}) translateZ(0)`,
         }}
       >
         <MessageSection2 onContinue={() => handleScrollToSection(3)} />
@@ -129,10 +129,10 @@ export default function Page() {
       <div
         ref={(el) => { sectionRefs.current[3] = el }}
         data-index={3}
-        className="narrative-section"
+        className="narrative-section section-transition section-depth"
         style={{
           opacity: opacities[3],
-          transform: `scale(${scale(3)})`,
+          transform: `scale(${scale(3)}) translateZ(0)`,
         }}
       >
         <MessageSection3 onContinue={() => handleScrollToSection(4)} />
@@ -141,10 +141,10 @@ export default function Page() {
       <div
         ref={(el) => { sectionRefs.current[4] = el }}
         data-index={4}
-        className="narrative-section"
+        className="narrative-section section-transition section-depth"
         style={{
           opacity: opacities[4],
-          transform: `scale(${scale(4)})`,
+          transform: `scale(${scale(4)}) translateZ(0)`,
         }}
       >
         <InvitationSection onBackToStart={() => handleScrollToSection(0)} />

@@ -54,7 +54,7 @@ export function MessageSection({ onContinue }: MessageSectionProps) {
   }, [])
 
   return (
-    <section className="relative flex min-h-svh items-center justify-center px-6 py-20">
+    <section className="relative flex min-h-[100dvh] items-center justify-center px-6 py-20">
       <div
         ref={sectionRef}
         className={`reveal-in-view romantic-card ${sectionVisible ? "is-visible" : ""} w-full max-w-sm rounded-2xl bg-card p-8 shadow-sm cursor-default`}
