@@ -3,10 +3,10 @@
 import { useState, useCallback } from "react"
 
 const PETAL_OPTIONS: Record<string, string> = {
-  "petal-0": "Ir a tomar algo",
-  "petal-1": "Ir a comer",
+  "petal-0": "Cena y peli",
+  "petal-1": "Salir a tomar algo",
   "petal-2": "Ir a la montaña",
-  "petal-3": "Ir al cine",
+  "petal-3": "Picnic en el lago",
 }
 
 export function SakuraFlowerSelector() {

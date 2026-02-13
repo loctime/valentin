@@ -32,8 +32,10 @@ export function InvitationSection({ onBackToStart }: InvitationSectionProps) {
             </b>
           </p>
         </div>
-<p className="text-xs text-muted-foreground">presiona los petalos!</p>
-        <SakuraFlowerSelector />
+<div className="flex flex-col items-center gap-2">
+          <p className="text-xs text-muted-foreground">presiona los petalos!</p>
+          <SakuraFlowerSelector />
+        </div>
 
         <p className="max-w-[260px] text-xs leading-relaxed text-muted-foreground">
           Elige una o varias opciones. Y si solo viniste por los chocolates,
