@@ -2,6 +2,13 @@
 
 import { useState, useCallback } from "react"
 
+const PETAL_OPTIONS: Record<string, string> = {
+  "petal-0": "Ir a tomar algo",
+  "petal-1": "Ir a comer",
+  "petal-2": "Ir a la montaña",
+  "petal-3": "Ir al cine",
+}
+
 export function SakuraFlowerSelector() {
   const [selectedPetals, setSelectedPetals] = useState<string[]>([])
 
@@ -11,16 +18,19 @@ export function SakuraFlowerSelector() {
     )
   }, [])
 
-  const petalClassName = (id: string) =>
-    `cursor-pointer transition-transform duration-300 ease-out origin-center ${
-      selectedPetals.includes(id)
-        ? "scale-110 -translate-y-2 rotate-2"
-        : "scale-100 translate-y-0 rotate-0"
-    }`
+  const petalClassName = () =>
+    "cursor-pointer transition-all duration-200 ease-out"
+
+  const petalStroke = (id: string) =>
+    selectedPetals.includes(id)
+      ? { stroke: "#000", strokeWidth: 4 }
+      : { stroke: "none", strokeWidth: 0 }
+
+  const petalFill = (id: string, defaultFill: string) => defaultFill
 
   return (
-    <div className="w-full flex justify-center">
-
+    <div className="flex w-full flex-col items-center gap-6">
+      <div className="w-full flex justify-center">
       <svg
         className="w-full max-w-[420px] h-auto"
         xmlns="http://www.w3.org/2000/svg"
@@ -28,8 +38,9 @@ export function SakuraFlowerSelector() {
       >
         <path
           id="petal-0"
-          fill="#F7BFCA"
-          className={petalClassName("petal-0")}
+          fill={petalFill("petal-0", "#F7BFCA")}
+          className={petalClassName()}
+          {...petalStroke("petal-0")}
           onClick={() => togglePetal("petal-0")}
           d="M1867.49,816.42c-4.698-1.319-10.201-4.014-10.024-8.518c0.133-3.385,3.523-5.777,6.609-7.623
 	c4.046-2.42,8.135-4.779,12.265-7.075c7.505-4.174,15.15-8.141,22.914-11.896c-43.156-76.946-128.508-129.856-223.744-145.125
@@ -59,8 +70,9 @@ export function SakuraFlowerSelector() {
         />
         <path
           id="petal-1"
-          fill="#F192AD"
-          className={petalClassName("petal-1")}
+          fill={petalFill("petal-1", "#F192AD")}
+          className={petalClassName()}
+          {...petalStroke("petal-1")}
           onClick={() => togglePetal("petal-1")}
           d="M1729.202,847.042c-43.463-82.213-149.773-129.685-253.187-114.725
 	c-118.864,17.195-213.021,109.345-280.017,199.038c17.693,13.477,31.357,32.34,39.065,53.285
@@ -132,8 +144,9 @@ export function SakuraFlowerSelector() {
 	C405.565,1176.718,417.523,1192.562,433.372,1203.959z"/>
         <path
           id="petal-2"
-          fill="#F192AD"
-          className={petalClassName("petal-2")}
+          fill={petalFill("petal-2", "#F192AD")}
+          className={petalClassName()}
+          {...petalStroke("petal-2")}
           onClick={() => togglePetal("petal-2")}
           d="M1087.915,1238.299c-0.648,0.082-1.298,0.153-1.949,0.21c-0.651,0.058-1.303,0.104-1.955,0.138
 	c-1.306,0.068-2.613,0.087-3.92,0.056l-0.979-0.032c-1.291-0.054-2.574-0.156-3.848-0.299c-0.765-0.086-1.526-0.188-2.285-0.303
@@ -152,8 +165,9 @@ export function SakuraFlowerSelector() {
         />
         <path
           id="petal-3"
-          fill="#F192AD"
-          className={petalClassName("petal-3")}
+          fill={petalFill("petal-3", "#F192AD")}
+          className={petalClassName()}
+          {...petalStroke("petal-3")}
           onClick={() => togglePetal("petal-3")}
           d="M910.6,1107.746c-0.03-7.13-0.119-14.27-1.443-21.214c-0.812-4.264-2.083-8.405-3.52-12.502
 	c-0.452-1.288-0.919-2.572-1.395-3.855c-0.426-1.148-0.859-2.295-1.291-3.442c-0.135-0.358-0.27-0.717-0.404-1.075
@@ -364,8 +378,20 @@ export function SakuraFlowerSelector() {
 	c0.405-1.173-0.043-2.515,0.372-3.685c0.675-1.905,3.108-2.355,4.76-3.517c1.863-1.31,2.778-3.83,2.19-6.03
 	C1095.712,1141.322,1085.68,1136.628,1083.767,1142.744z"/>
 </svg>
+      </div>
 
-
+      {selectedPetals.length > 0 && (
+        <div className="flex flex-wrap justify-center gap-2">
+          {selectedPetals.map((id) => (
+            <span
+              key={id}
+              className="rounded-full bg-primary/20 px-4 py-1.5 text-sm font-medium text-primary"
+            >
+              {PETAL_OPTIONS[id]}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
