@@ -381,6 +381,21 @@ html {
     transform var(--duration-slow) var(--ease-out-smooth);
 }
 
+/* Modal de confirmación: scale 0.95 → 1 + fade */
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-modal-in {
+  animation: modal-in 0.3s var(--ease-out-smooth) forwards;
+}
+
 /* Tercera sección de mensaje: entrada con escala */
 .reveal-in-view-scale {
   opacity: 0;
@@ -424,6 +439,7 @@ html {
   .animate-romantic-in-delay-4,
   .animate-romantic-in-delay-5,
   .animate-romantic-fade,
+  .animate-modal-in,
   .heart-decorative {
     animation: none;
     opacity: 1;

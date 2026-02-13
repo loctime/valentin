@@ -1,7 +1,9 @@
 "use client"
 
+import { useState, useCallback } from "react"
 import { useInViewOnce } from "@/hooks/use-in-view-once"
 import { SakuraFlowerSelector } from "@/components/sakura-flower-selector"
+import { ConfirmationModal } from "@/components/confirmation-modal"
 
 interface InvitationSectionProps {
   onBackToStart?: () => void
@@ -12,6 +14,16 @@ export function InvitationSection({ onBackToStart }: InvitationSectionProps) {
     threshold: 0.2,
     rootMargin: "0px 0px -5% 0px",
   })
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([])
+  const [modalOpen, setModalOpen] = useState(false)
+
+  const handleSelectionChange = useCallback((options: string[]) => {
+    setSelectedOptions(options)
+  }, [])
+
+  const handleConfirm = useCallback(() => {
+    setModalOpen(false)
+  }, [])
 
   return (
     <section className="flex min-h-svh items-center justify-center px-6 py-20">
@@ -32,9 +44,17 @@ export function InvitationSection({ onBackToStart }: InvitationSectionProps) {
             </b>
           </p>
         </div>
-<div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center gap-4">
           <p className="text-xs text-muted-foreground">presiona los petalos!</p>
-          <SakuraFlowerSelector />
+          <SakuraFlowerSelector onSelectionChange={handleSelectionChange} />
+          <button
+            type="button"
+            onClick={() => setModalOpen(true)}
+            disabled={selectedOptions.length === 0}
+            className="btn-romantic-cta rounded-full border border-primary/30 bg-primary/10 px-6 py-2.5 text-sm font-medium text-foreground shadow-sm hover:bg-primary/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          >
+            Aceptar propuesta
+          </button>
         </div>
 
         <p className="max-w-[260px] text-xs leading-relaxed text-muted-foreground">
@@ -52,6 +72,13 @@ export function InvitationSection({ onBackToStart }: InvitationSectionProps) {
             Volver al inicio
           </button>
         )}
+
+        <ConfirmationModal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          onConfirm={handleConfirm}
+          options={selectedOptions}
+        />
 
         <svg
           className="h-4 w-4 cursor-pointer text-[hsl(350_40%_62%)] opacity-35 animate-pulse-soft"

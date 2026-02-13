@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect } from "react"
 
 const PETAL_OPTIONS: Record<string, string> = {
   "petal-0": "Cena y peli",
@@ -9,8 +9,17 @@ const PETAL_OPTIONS: Record<string, string> = {
   "petal-3": "Picnic en el lago",
 }
 
-export function SakuraFlowerSelector() {
+interface SakuraFlowerSelectorProps {
+  onSelectionChange?: (options: string[]) => void
+}
+
+export function SakuraFlowerSelector({ onSelectionChange }: SakuraFlowerSelectorProps) {
   const [selectedPetals, setSelectedPetals] = useState<string[]>([])
+
+  useEffect(() => {
+    const options = selectedPetals.map((id) => PETAL_OPTIONS[id]).filter(Boolean)
+    onSelectionChange?.(options)
+  }, [selectedPetals, onSelectionChange])
 
   const togglePetal = useCallback((id: string) => {
     setSelectedPetals((prev) =>
