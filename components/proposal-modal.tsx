@@ -3,6 +3,7 @@
 import { useEffect } from "react"
 
 export interface ProposalConfirmPayload {
+  nombre: string
   selectedOptions: string[]
   customMessage: string
 }
@@ -10,6 +11,8 @@ export interface ProposalConfirmPayload {
 interface ProposalModalProps {
   open: boolean
   selections: string[]
+  nombre: string
+  onChangeNombre: (value: string) => void
   customMessage: string
   onChangeCustomMessage: (value: string) => void
   onClose: () => void
@@ -31,6 +34,8 @@ const HeartBullet = () => (
 export function ProposalModal({
   open,
   selections,
+  nombre,
+  onChangeNombre,
   customMessage,
   onChangeCustomMessage,
   onClose,
@@ -53,8 +58,12 @@ export function ProposalModal({
 
   if (!open) return null
 
+  const isNombreValid = nombre.trim().length > 0
+  const canConfirm = isNombreValid && !isSaving
+
   const handleConfirm = () => {
-    onConfirm({ selectedOptions: selections, customMessage })
+    if (!canConfirm) return
+    onConfirm({ nombre: nombre.trim(), selectedOptions: selections, customMessage })
   }
 
   return (
@@ -99,6 +108,20 @@ export function ProposalModal({
           ))}
         </ul>
 
+        <p className="mt-4 text-sm text-foreground">¿Cómo puedo llamarte?</p>
+        <label htmlFor="proposal-nombre" className="sr-only">
+          Tu nombre o apodo
+        </label>
+        <input
+          id="proposal-nombre"
+          type="text"
+          value={nombre}
+          onChange={(e) => onChangeNombre(e.target.value)}
+          placeholder="Tu nombre o apodo"
+          disabled={isSaving}
+          className="mt-1 w-full rounded-xl border border-primary/20 bg-background/50 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-70"
+        />
+
         <label htmlFor="proposal-custom-message" className="sr-only">
           Idea adicional opcional
         </label>
@@ -116,7 +139,7 @@ export function ProposalModal({
           <button
             type="button"
             onClick={handleConfirm}
-            disabled={isSaving}
+            disabled={!canConfirm}
             className="btn-romantic-cta rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 disabled:opacity-70 disabled:pointer-events-none"
           >
             {isSaving ? "Guardando…" : "Confirmar"}

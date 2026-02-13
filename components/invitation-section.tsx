@@ -20,9 +20,11 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
   })
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
   const [customMessage, setCustomMessage] = useState("")
+  const [nombre, setNombre] = useState("")
   const [isSaving, setIsSaving] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isProposalOpen, setIsProposalOpen] = useState(false)
+  const [formKey, setFormKey] = useState(0)
   const [confirmData, setConfirmData] = useState<{
     selectedOptions: string[]
     customMessage: string
@@ -37,15 +39,15 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
 
   const handleConfirm = useCallback(
     async (payload: ProposalConfirmPayload) => {
-      const hasOptions = payload.selectedOptions.length > 0
-      const hasMessage = payload.customMessage.trim().length > 0
-      if (!hasOptions && !hasMessage) return
+      if (!payload.nombre.trim()) return
 
       setIsSaving(true)
       try {
         await saveInvitationResponse({
-          selectedOptions: payload.selectedOptions,
-          customMessage: payload.customMessage,
+          nombre: payload.nombre.trim(),
+          selecciones: payload.selectedOptions,
+          propuestaExtra:
+            payload.customMessage.trim() || null,
         })
         setIsProposalOpen(false)
         setConfirmData({
@@ -53,6 +55,10 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
           customMessage: payload.customMessage,
         })
         setIsModalOpen(true)
+        setSelectedOptions([])
+        setCustomMessage("")
+        setNombre("")
+        setFormKey((k) => k + 1)
         onProposalConfirm?.(payload)
       } catch {
         // TODO: mostrar error al usuario (ej. toast o estado de error)
@@ -84,7 +90,10 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
         </div>
         <div className="flex flex-col items-center gap-4">
           <p className="text-xs text-muted-foreground">presiona los petalos!</p>
-          <SakuraFlowerSelector onSelectionChange={handleSelectionChange} />
+          <SakuraFlowerSelector
+            key={formKey}
+            onSelectionChange={handleSelectionChange}
+          />
           <button
             type="button"
             onClick={() => setIsProposalOpen(true)}
@@ -114,6 +123,8 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
         <ProposalModal
           open={isProposalOpen}
           selections={selectedOptions}
+          nombre={nombre}
+          onChangeNombre={setNombre}
           customMessage={customMessage}
           onChangeCustomMessage={setCustomMessage}
           onClose={() => setIsProposalOpen(false)}
