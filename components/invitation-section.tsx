@@ -34,8 +34,7 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
     setSelectedOptions(options)
   }, [])
 
-  const canSubmit =
-    selectedOptions.length > 0 || customMessage.trim().length > 0
+  const canSubmit = selectedOptions.length > 0
 
   const handleConfirm = useCallback(
     async (payload: ProposalConfirmPayload) => {
