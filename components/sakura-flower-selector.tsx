@@ -22,7 +22,7 @@ export function SakuraFlowerSelector() {
     <div className="w-full flex justify-center">
 
       <svg
-        className="w-full max-w-[280px] h-auto"
+        className="w-full max-w-[420px] h-auto"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 2122 2122"
       >
