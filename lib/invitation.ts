@@ -26,6 +26,7 @@ export function getOrCreateDeviceId(): string {
 
 export interface InvitationResponsePayload {
   nombre: string
+  telefono: string | null
   selecciones: string[]
   propuestaExtra: string | null
 }
@@ -38,6 +39,7 @@ export async function saveInvitationResponse(
 
   await addDoc(collection(firestore, "apps", "valentin", "respuestas"), {
     nombre: payload.nombre.trim(),
+    telefono: payload.telefono?.trim() || null,
     selecciones: payload.selecciones,
     propuestaExtra: payload.propuestaExtra,
     createdAt: serverTimestamp(),

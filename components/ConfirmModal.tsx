@@ -66,7 +66,7 @@ export function ConfirmModal({
           id="confirm-modal-title"
           className="font-serif text-xl font-medium text-foreground sm:text-2xl"
         >
-          ¡Estupendo! Tenemos una cita.
+          Ya tengo tu respuesta ❤️
         </h2>
         <p className="mt-2 text-sm text-muted-foreground">
           Solo debemos coordinar para:

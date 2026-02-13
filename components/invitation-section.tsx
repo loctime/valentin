@@ -21,6 +21,7 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
   const [customMessage, setCustomMessage] = useState("")
   const [nombre, setNombre] = useState("")
+  const [telefono, setTelefono] = useState("")
   const [isSaving, setIsSaving] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isProposalOpen, setIsProposalOpen] = useState(false)
@@ -44,6 +45,7 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
       try {
         await saveInvitationResponse({
           nombre: payload.nombre.trim(),
+          telefono: payload.telefono.trim() || null,
           selecciones: payload.selectedOptions,
           propuestaExtra:
             payload.customMessage.trim() || null,
@@ -57,6 +59,7 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
         setSelectedOptions([])
         setCustomMessage("")
         setNombre("")
+        setTelefono("")
         setFormKey((k) => k + 1)
         onProposalConfirm?.(payload)
       } catch {
@@ -124,6 +127,8 @@ export function InvitationSection({ onBackToStart, onProposalConfirm }: Invitati
           selections={selectedOptions}
           nombre={nombre}
           onChangeNombre={setNombre}
+          telefono={telefono}
+          onChangeTelefono={setTelefono}
           customMessage={customMessage}
           onChangeCustomMessage={setCustomMessage}
           onClose={() => setIsProposalOpen(false)}

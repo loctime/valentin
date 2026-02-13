@@ -4,6 +4,7 @@ import { useEffect } from "react"
 
 export interface ProposalConfirmPayload {
   nombre: string
+  telefono: string
   selectedOptions: string[]
   customMessage: string
 }
@@ -13,6 +14,8 @@ interface ProposalModalProps {
   selections: string[]
   nombre: string
   onChangeNombre: (value: string) => void
+  telefono: string
+  onChangeTelefono: (value: string) => void
   customMessage: string
   onChangeCustomMessage: (value: string) => void
   onClose: () => void
@@ -36,6 +39,8 @@ export function ProposalModal({
   selections,
   nombre,
   onChangeNombre,
+  telefono,
+  onChangeTelefono,
   customMessage,
   onChangeCustomMessage,
   onClose,
@@ -63,7 +68,12 @@ export function ProposalModal({
 
   const handleConfirm = () => {
     if (!canConfirm) return
-    onConfirm({ nombre: nombre.trim(), selectedOptions: selections, customMessage })
+    onConfirm({
+      nombre: nombre.trim(),
+      telefono: telefono.trim(),
+      selectedOptions: selections,
+      customMessage,
+    })
   }
 
   return (
@@ -120,6 +130,20 @@ export function ProposalModal({
           placeholder="Tu nombre o apodo"
           disabled={isSaving}
           className="mt-1 w-full rounded-xl border border-primary/20 bg-background/50 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-70"
+        />
+
+        <label htmlFor="proposal-telefono" className="sr-only">
+          Número de teléfono (opcional)
+        </label>
+        <input
+          id="proposal-telefono"
+          type="tel"
+          inputMode="numeric"
+          value={telefono}
+          onChange={(e) => onChangeTelefono(e.target.value)}
+          placeholder="Tu número de teléfono (opcional)"
+          disabled={isSaving}
+          className="mt-4 w-full rounded-xl border border-primary/20 bg-background/50 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-70"
         />
 
         <label htmlFor="proposal-custom-message" className="sr-only">
