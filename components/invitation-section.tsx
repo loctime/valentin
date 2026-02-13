@@ -27,10 +27,12 @@ export function InvitationSection({ onBackToStart }: InvitationSectionProps) {
             aria-hidden
           />
           <p className="relative z-10 font-serif text-xl leading-relaxed text-foreground sm:text-2xl">
-            ¿Qué te gustaría hacer?
+            Quiero invitarte a salir! <br /><br /><b>Podemos hacer un monton de cosas!
+           
+            </b>
           </p>
         </div>
-
+<p className="text-xs text-muted-foreground">presiona los petalos!</p>
         <SakuraFlowerSelector />
 
         <p className="max-w-[260px] text-xs leading-relaxed text-muted-foreground">
